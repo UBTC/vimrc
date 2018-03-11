@@ -1,3 +1,23 @@
+"  !/usr/bin/env vim
+"  -*- coding:utf-8 -*-
+
+"  ==============================================
+"  ·
+"  · Author: Maoji Wang
+"  ·
+"  · maoji.wang@cs.nyu.edu
+"  ·
+"  · Filename: custom.vim
+"  ·
+"  · COPYRIGHT 2018
+"  ·
+"  · Description:
+"  ·
+"  · This is my addons to the amix vimrc
+"  · move it to ~/.vim_runtime/my_configs.vim
+"  ·
+"  ==============================================
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Mode
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -77,7 +97,6 @@ set colorcolumn=+1
 hi ColorColumn NONE ctermbg=Cyan
 
 "set font
-""set guifont=Ubuntu\ Mono\ 13
 "set guifont=DejaVu\ Sans\ Mono\ 12
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -171,28 +190,19 @@ vnoremap <M-k> :m'<-2<CR>`>my`<mzgv`yo`z
 " Delete trailing white spaces
 noremap <leader><BS> :%s/\s\+$//ge<CR>
 
-" F6: toggle and untoggle spell checking
-noremap <F6> :setlocal spell!<CR>
-
-" F7: build something
-au FileType go nmap <F7> <Plug>(go-build)
-au FileType tex nmap <F7> :!xelatex %<CR>
-au FileType markdown nmap <F7> :!pandoc -f markdown+lhs % -o markdown.html -t dzslides -i -s -S --toc<CR>
-
-" F8: open vim file explorer
-noremap <F8> :NERDTreeToggle<CR>
-
 " F9: run according to filetypes
-au FileType go nmap <F5> :terminal<CR><Plug>(go-run)
-au FileType python let g:pymode_run_bind = "<F5>"
+au FileType go nmap <F9> :terminal<CR><Plug>(go-run)
+au FileType python let g:pymode_run_bind = "<F9>"
 
-" F10: be focus
-noremap <F10> :Goyo<CR>
+" F10: build something
+au FileType go nmap <F10> <Plug>(go-build)
+au FileType tex nmap <F10> :!xelatex %<CR>
+au FileType markdown nmap <F10> :!pandoc -f markdown+lhs % -o markdown.html -t dzslides -i -s -S --toc<CR>
 
 " F11: tags
 noremap <F11> 2o<ESC>k:call AddPartingLine()<CR>j
 
-" F12 attach copyright things
+" F12: attach copyright things
 noremap <F12> :call AddCopyright()<CR>:call ProcessEnv()<CR>
 
 " backspace in Visual mode deletes selection
@@ -236,14 +246,24 @@ noremap ; :
 noremap ;; ;
 
 " Quickly insert parenthesis/brackets/etc.:
-inoremap <leader>( ()<esc>i
-inoremap <leader>[ []<esc>i
-inoremap <leader>{ {}<esc>i
-inoremap <leader>' ''<esc>i
-inoremap <leader>" ""<esc>i
-inoremap <leader>` ``<esc>i
-inoremap <leader>$ $$<esc>i
-inoremap <leader>\| \|\|<esc>i
+inoremap <space>( ()<esc>i
+inoremap <space>[ []<esc>i
+inoremap <space>{ {}<esc>i
+inoremap <space>' ''<esc>i
+inoremap <space>" ""<esc>i
+inoremap <space>` ``<esc>i
+inoremap <space>$ $$<esc>i
+inoremap <space>\| \|\|<esc>i
+
+" Surround the visual selection in parenthesis/brackets/etc.:
+vnoremap <space>( <esc>`>a)<esc>`<i(<esc>
+vnoremap <space>[ <esc>`>a]<esc>`<i[<esc>
+vnoremap <space>{ <esc>`>a}<esc>`<i{<esc>
+vnoremap <space>" <esc>`>a"<esc>`<i"<esc>
+vnoremap <space>' <esc>`>a'<esc>`<i'<esc>
+vnoremap <space>` <esc>`>a`<esc>`<i`<esc>
+vnoremap <space>$ <esc>`>a$<esc>`<i$<esc>
+vnoremap <space>\| <esc>`>a\|<esc>`<i\|<esc>
 
 " brackets
 inoremap <expr> <silent> ( MayCloseParentheses('(')
