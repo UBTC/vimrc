@@ -171,16 +171,6 @@ vnoremap <M-k> :m'<-2<CR>`>my`<mzgv`yo`z
 " Delete trailing white spaces
 noremap <leader><BS> :%s/\s\+$//ge<CR>
 
-" F1-F4 resources
-noremap <F1> :Unite file_rec<CR>
-noremap <F2> :Unite file<CR>
-noremap <F3> :Unite buffer<CR>
-noremap <F4> :Unite tab<CR>
-
-" F5: run according to filetypes
-au FileType go nmap <F5> :terminal<CR><Plug>(go-run)
-au FileType python let g:pymode_run_bind = "<F5>"
-
 " F6: toggle and untoggle spell checking
 noremap <F6> :setlocal spell!<CR>
 
@@ -192,14 +182,15 @@ au FileType markdown nmap <F7> :!pandoc -f markdown+lhs % -o markdown.html -t dz
 " F8: open vim file explorer
 noremap <F8> :NERDTreeToggle<CR>
 
-" F9: start the debugger
-noremap <F9> :VBGstartGDB
+" F9: run according to filetypes
+au FileType go nmap <F5> :terminal<CR><Plug>(go-run)
+au FileType python let g:pymode_run_bind = "<F5>"
 
 " F10: be focus
-noremap <F10> 2o<ESC>k:call AddPartingLine()<CR>j
+noremap <F10> :Goyo<CR>
 
 " F11: tags
-noremap <F11> :TagbarToggle<CR>
+noremap <F11> 2o<ESC>k:call AddPartingLine()<CR>j
 
 " F12 attach copyright things
 noremap <F12> :call AddCopyright()<CR>:call ProcessEnv()<CR>
@@ -262,14 +253,6 @@ inoremap <expr> <silent> { MayCloseParentheses('{')
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! HasPaste()
-    if &paste
-        return 'MP'
-    else
-        return 'NP'
-    endif
-endfunction
-
 function! <SID>BufcloseCloseIt()
     let l:currentBufNum = bufnr("%")
     let l:alternateBufNum = bufnr("#")
@@ -309,14 +292,6 @@ function! MayCloseParentheses(cmd)
         elseif a:cmd == '{'
             return "{"
         endif
-    endif
-endfunction
-
-function! HasLinewidth()
-    if &tw<1000
-        return &tw
-    else
-        return 'K+'
     endif
 endfunction
 
